@@ -19,38 +19,39 @@ describe('Bookstore API Tests', () => {
   });
 
    // Создание пользователя с ошибкой: логин уже используется
-  test('Создание пользователя с ошибкой: логин уже используется', async () => {
-    const user = {
-      userName: `existing_user_${Date.now()}`,
-      password: 'ValidPass123!'
-    };
+  const client = axios.create({
+  baseURL: BASE_URL,
+  validateStatus: () => true // 
+});
 
-    // Сначала создаем пользователя
-    await axios.post(`${BASE_URL}/User`, user);
+test('Создание пользователя с ошибкой: логин уже используется', async () => {
+  const user = {
+    userName: `existing_user_${Date.now()}`,
+    password: 'ValidPass123!'
+  };
 
-    // Пытаемся создать повторно
-    try {
-      await axios.post(`${BASE_URL}/User`, user);
-    } catch (error) {
-      expect(error.response.status).toBe(406);
-      expect(error.response.data.message).toContain('User exists');
-    }
-  });
+  // Сначала создаем пользователя
+  await client.post('/User', user);
+
+  // Пытаемся создать повторно
+  const response = await client.post('/User', user);
+
+  expect(response.status).toBe(406);
+  expect(response.data.message).toContain('User exists');
+});
 
   // Создание пользователя с ошибкой: пароль не подходит
   test('Создание пользователя с ошибкой: пароль не подходит', async () => {
-    const user = {
-      userName: `invalid_pass_${Date.now()}`,
-      password: '123' // слишком короткий, простой пароль
-    };
+  const user = {
+    userName: `invalid_pass_${Date.now()}`,
+    password: '123'
+  };
 
-    try {
-      await axios.post(`${BASE_URL}/User`, user);
-    } catch (error) {
-      expect(error.response.status).toBe(400);
-      expect(error.response.data.message).toContain('Passwords must have');
-    }
-  });
+  const response = await client.post('/User', user);
+
+  expect(response.status).toBe(400);
+  expect(response.data.message).toContain('Passwords must have');
+});
 
   // Генерация токена успешно
   test('Генерация токена успешно', async () => {
