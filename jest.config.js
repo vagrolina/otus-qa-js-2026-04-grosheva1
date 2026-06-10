@@ -12,9 +12,7 @@ const config = {
   },
 
   // Не игнорировать faker из node_modules
-  transformIgnorePatterns: [
-    '/node_modules/(?!(\\@faker-js/faker)/)',
-  ],
+  transformIgnorePatterns: ['/node_modules/(?!@faker-js)/'],
 
   testEnvironment: "node",
 };
