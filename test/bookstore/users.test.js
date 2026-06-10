@@ -30,7 +30,7 @@ describe('Users', () => {
 
     // Проверяем статус и корректность данных
     expect(response.status).toBe(200)
-    expect(response.data).toMathObject({
+    expect(response.data).toMatchObject({
        userId,
        username: newUser.userName,
        books: expect.any(Array)
