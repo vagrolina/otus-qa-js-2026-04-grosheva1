@@ -30,10 +30,11 @@ describe('Users', () => {
 
     // Проверяем статус и корректность данных
     expect(response.status).toBe(200)
-    expect(response.data.userId).toBe(userId)
-    expect(response.data.username).toBe(newUser.userName)
-    expect(Array.isArray(response.data.books)).toBe(true)
-  })
+    expect(response.data).toMathObject({
+       userId,
+       username: newUser.userName,
+       books: expect.any(Array)
+    })
 
   it('Удаление юзера', async () => {
     const response = await UserService.remove({ userId, token })
