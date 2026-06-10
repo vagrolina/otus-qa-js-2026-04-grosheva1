@@ -35,6 +35,7 @@ describe('Users', () => {
        username: newUser.userName,
        books: expect.any(Array)
     })
+     })
 
   it('Удаление юзера', async () => {
     const response = await UserService.remove({ userId, token })
