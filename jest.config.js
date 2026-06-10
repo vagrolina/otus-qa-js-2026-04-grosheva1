@@ -5,6 +5,24 @@
 
 /** @type {import('jest').Config} */
 const config = {
+  coverageProvider: "v8",
+
+  transform: {
+    '^.+\\.js$': 'babel-jest',
+  },
+
+  // Не игнорировать faker из node_modules
+  transformIgnorePatterns: [
+    '/node_modules/(?!(\\@faker-js/faker)/)',
+  ],
+
+  testEnvironment: "node",
+};
+
+
+
+
+
   // All imported modules in your tests should be mocked automatically
   // automock: false,
 
@@ -32,7 +50,7 @@ const config = {
   // ],
 
   // Indicates which provider should be used to instrument code for coverage
-  coverageProvider: "v8",
+  //coverageProvider: "v8",
 
   // A list of reporter names that Jest uses when writing coverage reports
   // coverageReporters: [
@@ -194,7 +212,6 @@ const config = {
   // watchPathIgnorePatterns: [],
 
   // Whether to use watchman for file crawling
-  // watchman: true,
-};
+  // watchman: true;
 
-module.exports = config;
+ module.exports = config;

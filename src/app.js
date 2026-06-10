@@ -66,3 +66,4 @@ const scores = {
 };
 
 console.log(getScore(scores)); // 16
+
