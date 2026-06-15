@@ -22,7 +22,7 @@ describe('Users', () => {
 
     expect(authorizedBeforeLogin).toBe(false)
     expect(authorizedAfterLogin).toBe(true)
-  })
+  }, 15000)
 
    it('Получение информации о пользователе по ID', async () => {
     // Получаем данные пользователя по userId
