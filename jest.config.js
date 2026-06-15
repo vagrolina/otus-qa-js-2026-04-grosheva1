@@ -14,7 +14,10 @@ const config = {
   // Не игнорировать faker из node_modules
   transformIgnorePatterns: ['/node_modules/(?!@faker-js)/'],
 
-  testEnvironment: "node",
+  testEnvironment: 'allure-jest/node',
+  testEnvironmentOptions: {
+    resultsDir: 'reports/allure-results'
+  },
 };
 
 
@@ -125,7 +128,11 @@ const config = {
   // projects: undefined,
 
   // Use this configuration option to add custom reporters to Jest
-  // reporters: undefined,
+  reporters: [
+    ['github-actions', { silent: false }],
+    'default',
+    'summary',
+  ],
 
   // Automatically reset mock state before every test
   // resetMocks: false,
