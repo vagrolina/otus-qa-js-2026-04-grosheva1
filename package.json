@@ -18,6 +18,9 @@
     "@eslint/js": "^9.18.0",
     "@faker-js/faker": "^10.4.0",
     "@types/jest": "^30.0.0",
+    "allure-commandline": "^2.42.1",
+    "allure-jest": "^3.10.0",
+    "allure-js-commons": "^3.10.0",
     "axios": "^1.16.1",
     "babel-jest": "^30.4.1",
     "dotenv": "^17.4.2",
@@ -27,6 +30,7 @@
     "eslint-plugin-prettier": "^5.2.3",
     "globals": "^15.14.0",
     "jest": "^30.4.2",
+    "jest-github-actions-reporter": "^1.0.3",
     "npm-run-all2": "^7.0.2",
     "prettier": "^3.4.2",
     "supertest": "^7.2.2"
