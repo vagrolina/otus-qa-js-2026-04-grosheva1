@@ -128,6 +128,7 @@ const config = {
   // projects: undefined,
 
   // Use this configuration option to add custom reporters to Jest
+  // @ts-expect-error TS(2695): Left side of comma operator is unused and has no s... Remove this comment to see the full error message
   reporters: [
     ['github-actions', { silent: false }],
     'default',
@@ -219,4 +220,5 @@ const config = {
   // Whether to use watchman for file crawling
   // watchman: true;
 
+ // @ts-expect-error TS(2591): Cannot find name 'module'. Do you need to install ... Remove this comment to see the full error message
  module.exports = config;

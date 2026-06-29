@@ -39,6 +39,7 @@ describe('fullTrim', () => {
 describe('getTotal', () => {
   test('считает сумму одного товара', () => {
     expect(
+      // @ts-expect-error TS(2322): Type 'number' is not assignable to type 'never'.
       getTotal([{ price: 10, quantity: 2 }])
     ).toBe(20)
   })
@@ -46,7 +47,9 @@ describe('getTotal', () => {
   test('считает сумму нескольких товаров', () => {
     expect(
       getTotal([
+        // @ts-expect-error TS(2322): Type 'number' is not assignable to type 'never'.
         { price: 10, quantity: 2 },
+        // @ts-expect-error TS(2322): Type 'number' is not assignable to type 'never'.
         { price: 5, quantity: 4 }
       ])
     ).toBe(40)
@@ -54,24 +57,28 @@ describe('getTotal', () => {
 
   test('применяет скидку', () => {
     expect(
+      // @ts-expect-error TS(2322): Type 'number' is not assignable to type 'never'.
       getTotal([{ price: 100, quantity: 1 }], 10)
     ).toBe(90)
   })
 
   test('выбрасывает ошибку если скидка не число', () => {
     expect(() => {
+      // @ts-expect-error TS(2322): Type 'number' is not assignable to type 'never'.
       getTotal([{ price: 10, quantity: 1 }], 'string')
     }).toThrow('Скидка должна быть числом')
   })
 
   test('выбрасывает ошибку если скидка меньше 0', () => {
     expect(() => {
+      // @ts-expect-error TS(2322): Type 'number' is not assignable to type 'never'.
       getTotal([{ price: 10, quantity: 1 }], -1)
     }).toThrow('Процент скидки должен быть от 0 до 99')
   })
 
   test('выбрасывает ошибку если скидка больше или равна 100', () => {
     expect(() => {
+      // @ts-expect-error TS(2322): Type 'number' is not assignable to type 'never'.
       getTotal([{ price: 10, quantity: 1 }], 100)
     }).toThrow('Процент скидки должен быть от 0 до 99')
   })
@@ -84,6 +91,7 @@ describe('getTotal', () => {
   ])(
     'корректно считает total для items=%o и discount=%i',
     (items, discount, expected) => {
+      // @ts-expect-error TS(2345): Argument of type '{ price: number; quantity: numbe... Remove this comment to see the full error message
       expect(getTotal(items, discount)).toBe(expected)
     }
   )

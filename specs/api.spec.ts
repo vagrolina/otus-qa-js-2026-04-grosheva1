@@ -1,3 +1,4 @@
+// @ts-expect-error TS(2591): Cannot find name 'require'. Do you need to install... Remove this comment to see the full error message
 const axios = require('axios');
 
 const BASE_URL = 'https://bookstore.demoqa.com/Account/v1';

@@ -1,3 +1,4 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'supe... Remove this comment to see the full error message
 import supertest from 'supertest'
 import config from '../config/configBookstore'
 
@@ -12,7 +13,7 @@ const getBooks = async () => {
   }
 }
 
-const getBookByISBN = async (isbn) => {
+const getBookByISBN = async (isbn: any) => {
   const response = await supertest(config.baseURL)
     .get(`/BookStore/v1/Book?ISBN=${isbn}`)
 
