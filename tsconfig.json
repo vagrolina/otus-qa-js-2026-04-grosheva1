@@ -8,6 +8,8 @@
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "commonjs",
+    "moduleResolution": "node",
+    "ignoreDeprecations": "6.0",
     "target": "esnext",
     "types": ["jest",
   "jest-json-schema"
@@ -37,10 +39,17 @@
     // Recommended Options
     "strict": true,
     "jsx": "react-jsx",
-    "verbatimModuleSyntax": true,
+    "verbatimModuleSyntax": false,
     "isolatedModules": true,
     "noUncheckedSideEffectImports": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+  },
+  
+   "exclude": [
+    "node_modules",
+    "reports",
+    "allure-report",
+    "dist"
+  ]
 }

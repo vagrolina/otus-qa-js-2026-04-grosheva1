@@ -1,4 +1,4 @@
-import { fullTrim, getTotal, nameIsValid } from '../src/app.js';
+import { fullTrim, getTotal, nameIsValid } from '../src/app';
 
 describe('nameIsValid', () => {
   test('возвращает true для корректного имени', () => {
