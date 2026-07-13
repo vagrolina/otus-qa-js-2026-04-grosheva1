@@ -12,7 +12,8 @@
     "ignoreDeprecations": "6.0",
     "target": "esnext",
     "types": ["jest",
-  "jest-json-schema"
+      "jest-json-schema",
+      "node"
 ],
     // For nodejs:
     // "lib": ["esnext"],
