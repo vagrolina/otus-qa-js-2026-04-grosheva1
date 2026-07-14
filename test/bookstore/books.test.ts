@@ -6,6 +6,7 @@ import {
   UserService
 } from '../../framework'
 
+// @ts-expect-error TS(2732): Cannot find module '../../framework/fixtures/Books... Remove this comment to see the full error message
 import { books } from '../../framework/fixtures/Books.json'
 
 describe('Book CRUD', () => {
@@ -13,7 +14,7 @@ describe('Book CRUD', () => {
 
   const [book1, book2, book3] = books
 
-  let token
+  let token: any
 
   beforeAll(async () => {
     const { data } = await AuthService.generateToken({
@@ -75,7 +76,7 @@ describe('Book CRUD', () => {
       })
 
       expect(
-  userResponse.data.books.some(book => book.isbn === book1.isbn)
+  userResponse.data.books.some((book: any) => book.isbn === book1.isbn)
 ).toBe(true)
     })
   })

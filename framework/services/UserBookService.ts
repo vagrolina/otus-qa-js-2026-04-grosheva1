@@ -1,7 +1,13 @@
+// @ts-expect-error TS(7016): Could not find a declaration file for module 'supe... Remove this comment to see the full error message
 import supertest from 'supertest'
 import config from '../config/configBookstore'
 
-const replaceBook = async ({ userId, fromIsbn, toIsbn, token }) => {
+const replaceBook = async ({
+  userId,
+  fromIsbn,
+  toIsbn,
+  token
+}: any) => {
   const response = await supertest(config.baseURL)
     .put(`/BookStore/v1/Books/${fromIsbn}`)
     .set('Authorization', token)
@@ -17,10 +23,16 @@ const replaceBook = async ({ userId, fromIsbn, toIsbn, token }) => {
   }
 }
 
-const addListOfBooks = async ({ userId, isbns, token }) => {
+const addListOfBooks = async ({
+  userId,
+  isbns,
+  token
+}: any) => {
   const payload = {
     userId,
-    collectionOfIsbns: isbns.map(isbn => ({ isbn }))
+    collectionOfIsbns: isbns.map((isbn: any) => ({
+      isbn
+    }))
   }
 
   const response = await supertest(config.baseURL)
@@ -36,7 +48,10 @@ const addListOfBooks = async ({ userId, isbns, token }) => {
   }
 }
 
-const removeAllBooks = async ({ userId, token }) => {
+const removeAllBooks = async ({
+  userId,
+  token
+}: any) => {
   const response = await supertest(config.baseURL)
     .delete(`/BookStore/v1/Books?UserId=${userId}`)
     .set('Authorization', `Bearer ${token}`)
@@ -48,7 +63,11 @@ const removeAllBooks = async ({ userId, token }) => {
   }
 }
 
-const removeBook = async ({ userId, isbn, token }) => {
+const removeBook = async ({
+  userId,
+  isbn,
+  token
+}: any) => {
   const response = await supertest(config.baseURL)
     .delete('/BookStore/v1/Book')
     .set('Authorization', `Bearer ${token}`)
