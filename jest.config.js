@@ -10,8 +10,16 @@ module.exports = {
   transformIgnorePatterns: ['/node_modules/(?!@faker-js)/'],
 
   reporters: [
-    ['github-actions', { silent: false }],
+    //['github-actions', { silent: false }],
+     'summary',
     'default',
-    'summary',
+    ['jest-html-reporters' , 
+    {
+    publicPath : './reports/html-report' ,
+    filename : 'index.html' ,
+    openReport : true //!process.env.CI
+    }]
+
+   
   ],
 };

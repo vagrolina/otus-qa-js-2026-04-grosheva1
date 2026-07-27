@@ -1,7 +1,6 @@
-// @ts-expect-error TS(2591): Cannot find name 'require'. Do you need to install... Remove this comment to see the full error message
-const axios = require('axios');
-
+const axios = require('axios')
 import config from '../config/configBookstore'
+import TelegramService from './TelegramService'
 
 const client = axios.create({
   baseURL: config.baseURL,
@@ -29,10 +28,22 @@ const createUser = async ({
   userName,
   password
 }: any) => {
-  const response = await client.post(`/Account/v1/User`, {
+  const response = await client.post('/Account/v1/User', {
     userName,
     password
   })
+
+  /**
+   * ВАЖНО! Это сделано для примера отправки уведомлений в телеграм из тестов.
+   * Отправлять что-то из тестов куда-то не рекомендую,
+   * кроме тех случаев, когда это может вам понадобиться.
+   */
+  await TelegramService.sendMessage(
+    `Создан новый пользователь:\r\n` +
+      `username: ${userName}\r\n` +
+      `password: ${password}\r\n` +
+      `userId: ${response.data.userID}`
+  )
 
   return {
     headers: response.headers,

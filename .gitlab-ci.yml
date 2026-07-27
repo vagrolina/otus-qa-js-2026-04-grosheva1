@@ -1,0 +1,92 @@
+stages:
+  - lint
+  - test
+  - report
+  - build
+  - deploy
+
+default:
+  image: node:22.14.0
+
+.node:
+  cache:
+    - key:
+        files:
+          - package-lock.json
+      paths:
+        - node_modules
+  before_script:
+    - npm ci
+
+code-style:
+  extends: .node
+  stage: lint
+  script:
+    - npm run lint:ci
+
+test-api:
+  extends: .node
+  stage: test
+  script:
+    - |
+      printf 'TEST_TELEGRAM_ENABLE=true\n' > .env
+      printf 'TEST_TELEGRAM_CHAT_ID=%s\n' "$TEST_TELEGRAM_CHAT_ID" >> .env
+      printf 'TEST_TELEGRAM_TOKEN=%s\n' "$TEST_TELEGRAM_TOKEN" >> .env
+      npm test
+  artifacts:
+    when: always
+    paths:
+      - reports/allure-results
+      - reports/html-report
+
+report:
+  dependencies:
+    - test-api
+  stage: report
+  image: registry.gitlab.com/freepad/qajs_2024_12/allure
+  script:
+    - allure generate reports/allure-results --clean --report-dir reports/allure-report
+  artifacts:
+    when: always
+    paths:
+      - reports/allure-report
+      - reports/html-report
+
+publish-html-report:
+  stage: report
+  dependencies:
+    - test-api
+  script:
+    - mkdir -p public-html/report
+    - cp -r reports/html-report/. public-html/report/
+    - printf '<!doctype html><meta http-equiv="refresh" content="0; url=./report/">' > public-html/index.html
+  artifacts:
+    when: always
+    paths:
+      - public-html
+
+build:
+  image: docker:20.10.16
+  stage: build
+  services:
+    - docker:20.10.16-dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY_IMAGE:latest -t $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG .
+    - docker push $CI_REGISTRY_IMAGE:latest
+    - docker push $CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG
+
+pages:
+  stage: deploy
+  image: alpine:latest
+  dependencies:
+    - publish-html-report
+  script:
+    - mkdir -p public
+    - cp -r public-html/. public/
+    - echo "Open report in browser: $CI_PAGES_URL"
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
