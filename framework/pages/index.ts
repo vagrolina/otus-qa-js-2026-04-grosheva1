@@ -1,0 +1,5 @@
+export * from './HomePage'
+export * from './DoctorsPage'
+export * from './DoctorPage'
+export * from './AppointmentPage'
+export * from './PricesPage'
