@@ -16,7 +16,12 @@ export class PricesPageClass extends BasePageClass {
   }
 
   async selectCurrency(currency: string) {
-    await this.currencyButton(currency).click()
+    const button = this.currencyButton(currency)
+
+    await button.scrollIntoViewIfNeeded()
+    await button.click()
+
+    await this.page.waitForTimeout(1000)
   }
 
   async checkCurrency(currency: string) {

@@ -8,7 +8,8 @@
     "lint:ci": "eslint .",
     "lint": "eslint . --fix",
     "test": "jest",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "test:cucumber": "cucumber-js"
   },
   "author": "Damir Rysaev <freepad@ya.ru>",
   "keywords": [],
@@ -16,6 +17,7 @@
   "devDependencies": {
     "@babel/core": "^7.29.7",
     "@babel/preset-env": "^7.29.7",
+    "@cucumber/cucumber": "^13.2.1",
     "@eslint/js": "^9.39.4",
     "@faker-js/faker": "^9.9.0",
     "@playwright/test": "^1.63.0",
